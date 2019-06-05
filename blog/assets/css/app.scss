@@ -1,0 +1,22 @@
+// assets/css/global.scss
+
+// customize some Bootstrap variables
+$primary: white;
+$secondary: salmon;
+$text: black;
+
+// the ~ allows you to reference things in node_modules
+@import "~bootstrap/scss/bootstrap";
+
+body {
+    background-color: $secondary;
+    color: $primary;
+}
+
+h2, p {
+    color: $text;
+}
+
+h3 {
+    font-size: 20px;
+}
