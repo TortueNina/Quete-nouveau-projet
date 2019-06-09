@@ -3,6 +3,12 @@
 {% block title %}All articles{% endblock %}
 
 {% block body %}
+
+    {{ form_start(form) }}
+    {{ form_row(form.searchField) }}
+    <button type="submit" name="btnSearch" class="btn btn-warning">Rechercher</button>
+    {{ form_end(form) }}
+
     <h1>Mes articles : </h1>
     {% for article in articles %}
         <div class="container">
@@ -13,6 +19,7 @@
     {% else %}
         Aucun article trouvé.
     {% endfor %}
+
     <a href="{{ path('app_index') }}">
         Back to homepage.
     </a>

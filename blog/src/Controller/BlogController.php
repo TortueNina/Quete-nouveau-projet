@@ -5,11 +5,17 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Entity\Category;
+use App\Form\ArticleNewType;
+use App\Form\ArticleSearchType;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\Mapping\OrderBy;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DomCrawler\Field\TextareaFormField;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 class BlogController extends AbstractController
 {
@@ -21,6 +27,12 @@ class BlogController extends AbstractController
      */
     public function index(): Response
     {
+        $form = $this->createForm(
+            ArticleSearchType::class,
+            null,
+            ['method' => Request::METHOD_GET]
+        );
+
         $articles = $this->getDoctrine()
             ->getRepository(Article::class)
             ->findAll();
@@ -32,8 +44,10 @@ class BlogController extends AbstractController
         }
 
         return $this->render(
-            'blog/index.html.twig',
-            ['articles' => $articles]
+            'blog/index.html.twig', [
+                'articles' => $articles,
+                'form' => $form->createView(),
+            ]
         );
     }
 
@@ -59,7 +73,7 @@ class BlogController extends AbstractController
           $articles = $category->getArticles();
 
         return $this->render(
-            'blog/category.html.twig',
+            'blog/article.html.twig',
             ['category' => $category,
               'articles' => $articles]
         );
