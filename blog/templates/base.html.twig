@@ -11,8 +11,10 @@
         {% block header %}
             {% include '/blog/navbar.html.twig' %}
         {% endblock header %}
-        {% block body %}
-        {% endblock body %}
+        <div class="container">
+            {% block body %}
+            {% endblock body %}
+        </div>
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
