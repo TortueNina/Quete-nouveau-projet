@@ -95,10 +95,13 @@ class Article
 
     public function addTag(Tag $tag): self
     {
-        if (!$this->tags->contains($tag)) {
-            $this->tags[] = $tag;
-            $tag->addArticle($this);
+        if ($this->tags->contains($tag)) {
+
+            return $this;
         }
+
+        $this->tags[] = $tag;
+        $tag->addArticle($this);
 
         return $this;
     }
